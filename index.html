@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+    <style>
+       
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        
+        @font-face {
+            font-family: 'Ownglyph_meetme-Rg';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/Ownglyph_meetme-Rg.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+   
+        @font-face {
+            font-family: 'RixXladywatermelonR';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-4@1.0/RixXladywatermelonR.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+     
+        .left-image {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 270px;
+            height: 480px;
+        }
+
+       
+        .question-container {
+            position: absolute;
+            right: 22%;
+            top: 25%; 
+            text-align: center;
+            transform: translateX(-25%);
+            font-size: 1.2em;
+        }
+
+        
+        .title {
+            font-size: 80px;
+            margin-bottom: 30px;
+            font-family: 'RixXladywatermelonR', sans-serif;
+        }
+
+       
+        .question {
+            font-size: 30px;
+            margin-bottom: 15px;
+            font-family: 'Ownglyph_meetme-Rg', sans-serif;
+        }
+
+        .input-box {
+            width: 500px;
+            height: 40px;
+            font-size: 30px;
+            padding: 8px;
+            margin-bottom: 15px;
+            font-family: 'Ownglyph_meetme-Rg', sans-serif;
+        }
+
+        
+        .submit-button {
+            position: absolute;
+            top: 38%; 
+            right: 20%;
+            width: 120px;
+            height: 120px;
+            background-image: url('drawing/rabbit1.png');
+            background-size: cover;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    
+    <img src="drawing/main1.png" alt="Image 1" id="leftImage" class="left-image">
+
+  
+    <div class="question-container">
+        <div class="title">Drefuge</div>
+        <div class="question" id="questionText">안녕! 너의 이름은 뭐야?</div>
+        <input type="text" class="input-box" id="answerInput" autocomplete="off">
+    </div>
+
+  
+    <button class="submit-button" id="submitButton"></button>
+
+    <script>
+       
+        let currentImageIndex = 1;
+        const leftImage = document.getElementById("leftImage");
+        setInterval(() => {
+            currentImageIndex = currentImageIndex === 1 ? 2 : 1;
+            leftImage.src = `drawing/main${currentImageIndex}.png`;
+        }, 2000);
+
+        
+        const questions = ["안녕! 너의 이름은 뭐야?", "요즘 가장 힘든 고민을 적어줘."];
+        let currentQuestionIndex = 0;
+        const questionText = document.getElementById("questionText");
+        const answerInput = document.getElementById("answerInput");
+        const submitButton = document.getElementById("submitButton");
+
+        
+        function submitAnswer() {
+            if (answerInput.value.trim() === "") return;
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                questionText.textContent = questions[currentQuestionIndex];
+                answerInput.value = "";
+            } else {
+                window.location.href = "character.html";
+            }
+        }
+
+        
+        submitButton.addEventListener("click", submitAnswer);
+
+        
+        answerInput.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                submitAnswer();
+            }
+        });
+
+       
+        submitButton.addEventListener("mouseover", () => {
+            submitButton.style.backgroundImage = "url('drawing/rabbit2.png')";
+        });
+        submitButton.addEventListener("mouseout", () => {
+            submitButton.style.backgroundImage = "url('drawing/rabbit1.png')";
+        });
+    </script>
+</body>
+</html>
